@@ -1,0 +1,62 @@
+# 📦 Simple rule-based chatbot with memory (no external packages)
+
+# ───────────────────────────────────────────────────────
+# 📌 Chat Memory: Sliding window buffer class
+# ───────────────────────────────────────────────────────
+class ChatMemory:
+    def __init__(self, max_turns=5):
+        self.max_turns = max_turns
+        self.history = []
+
+    def add_message(self, user_input, bot_response):
+        self.history.append(f"User: {user_input}\nBot: {bot_response}")
+        if len(self.history) > self.max_turns:
+            self.history.pop(0)
+
+    def get_context(self):
+        return "\n".join(self.history)
+
+
+# ────────────────────────────────────────
+# 📌 Simple rule-based chatbot logic
+# ────────────────────────────────────────
+def get_bot_response(user_input):
+    user_input = user_input.lower()
+
+    if "capital of france" in user_input:
+        return "The capital of France is Paris."
+    elif "capital of italy" in user_input:
+        return "The capital of Italy is Rome."
+    elif "how are you" in user_input:
+        return "I'm just a program, but I'm functioning perfectly."
+    elif "who created you" in user_input:
+        return "I was created by a developer named jayadeepthi.m."
+    else:
+        return "Sorry, I don't know the answer to that."
+
+
+# ────────────────────────────────────────
+# 📌 CLI Interface: Chatbot interaction loop
+# ────────────────────────────────────────
+def start_chat():
+    memory = ChatMemory(max_turns=5)
+    print("🤖 Local CLI Chatbot (type '/exit' to quit)\n")
+
+    while True:
+        user_input = input("User: ")
+
+        if user_input.strip().lower() == "/exit":
+            print("Exiting chatbot. Goodbye!")
+            break
+
+        bot_reply = get_bot_response(user_input)
+
+        print(f"Bot: {bot_reply}\n")
+
+        memory.add_message(user_input, bot_reply)
+
+# ────────────────────────────────────────
+# 📌 Main Execution Block
+# ────────────────────────────────────────
+if __name__ == "__main__":
+    start_chat()
