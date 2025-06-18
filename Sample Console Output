@@ -1,0 +1,10 @@
+🤖 Local CLI Chatbot (type '/exit' to quit)
+
+User: What is the capital of France?
+Bot: The capital of France is Paris.
+
+User: Who created you?
+Bot: I was created by a developer named jayadeepthi.m.
+
+User: /exit
+Exiting chatbot. Goodbye!
